@@ -1,4 +1,4 @@
-package org.xin.aspect;
+package org.xin.aspect.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

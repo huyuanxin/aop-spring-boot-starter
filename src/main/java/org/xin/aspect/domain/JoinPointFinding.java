@@ -34,5 +34,4 @@ public class JoinPointFinding {
         this.joinPointHandlerList = joinPointHandlerList;
     }
 
-
 }
