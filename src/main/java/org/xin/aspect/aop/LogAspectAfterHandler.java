@@ -35,13 +35,12 @@ public class LogAspectAfterHandler {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         AspectAfter methodAnn = methodSignature.getMethod().getDeclaredAnnotation(AspectAfter.class);
-        List<JoinPointHandler> allJoinPointHandlers = Lists.newArrayList();
+        List<JoinPointHandler> joinPointHandlersInMethod = Lists.newArrayList();
 
         if (methodAnn != null) {
-            List<JoinPointHandler> joinPointHandlers = getJoinPointHandlersInAnnotation(methodAnn);
-            allJoinPointHandlers.addAll(joinPointHandlers);
+            joinPointHandlersInMethod = getJoinPointHandlersInAnnotation(methodAnn);
             if (methodAnn.override()) {
-                allJoinPointHandlers.forEach(it -> it.handlerAop(joinPoint));
+                joinPointHandlersInMethod.forEach(it -> it.handlerAop(joinPoint));
                 return;
             }
         }
@@ -53,9 +52,9 @@ public class LogAspectAfterHandler {
         if (declaredAnnotation instanceof AspectAfter) {
             AspectAfter classAnn = (AspectAfter) declaredAnnotation;
             List<JoinPointHandler> joinPointHandlersInClass = getJoinPointHandlersInAnnotation(classAnn);
-            allJoinPointHandlers.addAll(joinPointHandlersInClass);
+            joinPointHandlersInClass.addAll(joinPointHandlersInMethod);
+            joinPointHandlersInClass.forEach(it -> it.handlerAop(joinPoint));
         }
-        allJoinPointHandlers.forEach(it -> it.handlerAop(joinPoint));
     }
 
     private List<JoinPointHandler> getJoinPointHandlersInAnnotation(AspectAfter aspectAfter) {
