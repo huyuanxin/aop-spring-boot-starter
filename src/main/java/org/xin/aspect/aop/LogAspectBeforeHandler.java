@@ -37,11 +37,10 @@ public class LogAspectBeforeHandler {
         AspectBefore methodAnn = methodSignature.getMethod().getDeclaredAnnotation(AspectBefore.class);
 
         JoinPointFinding joinPointFinding = AopUtils.getJoinPointHandlersInMethod(joinPointHandlerRepository, AspectValue.of(methodAnn));
-        if (joinPointFinding.getEnd()) {
+        if (Boolean.TRUE.equals(joinPointFinding.getEnd())) {
             joinPointFinding.getJoinPointHandlerList().forEach(it -> it.handlerAop(joinPoint));
             return;
         }
-
         Annotation declaredAnnotation = signature.getDeclaringType().getDeclaredAnnotation(AspectBefore.class);
         if (declaredAnnotation == null) {
             joinPointFinding.getJoinPointHandlerList().forEach(it -> it.handlerAop(joinPoint));

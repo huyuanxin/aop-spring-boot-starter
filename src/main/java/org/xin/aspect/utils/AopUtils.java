@@ -32,7 +32,7 @@ public class AopUtils {
         }
 
         List<JoinPointHandler> joinPointHandlers = joinPointHandlerRepository.getHandlerJoinPointsByClass(aspectValue.getJoinHandlerPointList());
-        if (aspectValue.getDuplicable()) {
+        if (Boolean.TRUE.equals(aspectValue.getDuplicable())) {
             return joinPointHandlers;
         }
 

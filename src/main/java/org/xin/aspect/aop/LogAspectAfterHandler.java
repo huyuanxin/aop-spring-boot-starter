@@ -37,7 +37,7 @@ public class LogAspectAfterHandler {
         AspectAfter methodAnn = methodSignature.getMethod().getDeclaredAnnotation(AspectAfter.class);
 
         JoinPointFinding joinPointFinding = AopUtils.getJoinPointHandlersInMethod(joinPointHandlerRepository, AspectValue.of(methodAnn));
-        if (joinPointFinding.getEnd()) {
+        if (Boolean.TRUE.equals(joinPointFinding.getEnd())) {
             joinPointFinding.getJoinPointHandlerList().forEach(it -> it.handlerAop(joinPoint));
             return;
         }
