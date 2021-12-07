@@ -37,13 +37,4 @@ public @interface AspectBefore {
      */
     boolean override() default true;
 
-    /**
-     * 是否可以重复
-     * <p>
-     * is duplicable
-     *
-     * @return is duplicable
-     */
-    boolean duplicable() default false;
-
 }
