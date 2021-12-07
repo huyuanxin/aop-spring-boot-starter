@@ -32,13 +32,16 @@ import java.util.Objects;
 @Component
 public class LogAspectAroundHandler implements ApplicationContextAware {
 
-    @Autowired(required = false)
-    private LogOutputHandler logOutputHandler;
+    private final LogOutputHandler logOutputHandler;
 
     /**
      * applicationContext
      */
     private ApplicationContext applicationContext;
+
+    public LogAspectAroundHandler(@Autowired(required = false) LogOutputHandler logOutputHandler) {
+        this.logOutputHandler = logOutputHandler;
+    }
 
     @Around(value = "@annotation(org.xin.aspect.annotation.LogAround)||@within(org.xin.aspect.annotation.LogAround)")
     public Object aroundHandler(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
